@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Grid from './Grid';
-import Footer from './Footer';
 
 const Container = styled.section`
     display: flex;
@@ -118,7 +117,6 @@ const ArrowDown = styled.div`
     display: block;
 
     svg {
-        
         fill: #f9f9f9;
         height: 30px;
         object-fit: contain;
@@ -248,13 +246,17 @@ const Meta =styled.div`
     .richtext {
         font-size: 1.25em;
         color: lightgray;
-    }
 
+            ul > li {
+            margin-bottom: 15px;
+            }
+        }
 
     @media screen and (max-width:1000px) {
         padding-left: 20px;
         padding-top: 12%;
         padding-bottom: 12%;
+
         .heading {
             font-size: 2em;
         }
@@ -327,91 +329,93 @@ const ImgContainer = styled.div`
 
 function Login() {
     return (
-        <>
-            <Container>
-                <Content>
-                    <CTA>
-                        <CTALogoOne src="/images/cta-logo-one.svg" alt="hulu Disney ESPN logo" />
-                        <SignUp href="/">GET THE DISNEY BUNDLE</SignUp>
-                        <p>Stream now. <a href="/">Terms apply.</a></p>
-                        <CTALogoTwo src="/images/cta-logo-two.png" alt="hulu Disney ESPN logo" />
-                        <SignForDisney href="/">Sign up for Disney+ only.</SignForDisney>
-                        <Price>$7.99/month or $79.99/year.</Price>
-                    </CTA>
-                    <BgImg />
-                </Content>
-                <ArrowDown>
-                    <a href="#next_section">
-                        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" fill="none"></rect><path d="M36.63,18.37a1.37,1.37,0,0,1,2.15.37,1.7,1.7,0,0,1-.3,2.06L25.4,32.64a1.37,1.37,0,0,1-1.85,0l-13-11.84a1.71,1.71,0,0,1-.29-2.06,1.37,1.37,0,0,1,2.15-.37l12.11,11ZM24.25,31.42a.38.38,0,0,1,.46,0l-.23-.21ZM11.71,19.55s0,.06,0,0Zm25.61,0h0Z"></path></svg>
-                    </a>
-                </ArrowDown>
-            </Container>
-            <Container id="next_section">
-                <CardContent>
-                    <PictureContent>
-                        <img src="/images/backgrounds/Raya_Side_Align_1440_en-US.jpeg" alt="" />
-                    </PictureContent>
-                    <PosterText>
-                        <h2>Now streaming with <br /><span>Premier Access</span></h2>
-                        <p>See Raya and the Last Dragon before it's available to all Disney+ subscribers on June 4. Watch as many times as you like with Premier Access for $29.99 and your Disney+ subscription.</p>
-                        <a href="/">Get Premier Access Now</a>
-                    </PosterText>
-                </CardContent>
-            </Container>
-            <CaptionContainer>
-                <Wrapper>
-                    <Meta>
-                        <h2 className="heading">Virtual movie nights with GroupWatch</h2>
-                        <div className="richtext">
-                            <ul>
-                                <li>Watch together, even when apart</li>
-                                <li>Stream with up to 6 friends</li>
-                                <li>Pause, rewind, react together</li>
-                                <li>Easy setup and sharing</li>
-                            </ul>
-                        </div>
-                    </Meta>
-                </Wrapper>
-                <BgImgSecond />
-            </CaptionContainer>
-            <Grid title="The new home for your favorites" paragraph="An unprecedented collection of the world's most beloved movies and TV series"
-                imgSrc={["/images/posters/moana-poster-4-2.png",
-                        "/images/posters/Poster_InfinityWar_EN.jpeg",
-                        "/images/posters/Disney_MLP_GridItem_TS4_AUNZ.jpeg",
-                        "/images/posters/Disney_MLP_GridItem_SWRiseofSkywalker.jpeg",
-                        "/images/posters/the-simpsons-poster-6@2x-1.png",
-                        "/images/posters/Hamilton_Grid_Item_English.jpeg",
-                        "/images/posters/Mickey_Mouse_Clubhouse_Grid_Item_052820.jpeg",
-                        "/images/posters/Poster_LifeBelowZero_EN.jpeg",
-                        "/images/posters/Poster_ArtemisFowl_EN_v2.jpeg"
-            ]} button="GET THE DISNEY BUNDLE"
-            />
-            <CaptionContainer>
-                <StreamWrapper>
-                    <MetaStream>
-                        <h2>Stream now or <br/><span>download and go</span></h2>
-                        <p>
-                        Stream on 4 devices at once or download your favorites to watch later. With dozens of titles in stunning 4K UHD, you can watch the way you always wished.
-                        </p>
-                    </MetaStream>
-                    <ImgContainer>
-                        <img src="/images/backgrounds/4DevicesLockup_English_1140.png" alt="4Device" />
-                    </ImgContainer>
-                </StreamWrapper>
-            </CaptionContainer>
-            <Grid title="Stream exclusive Disney+ Originals" paragraph="New stories from our incredible family of studios"
-                imgSrc={["/images/posters/FAWS_(1)-3.png",
-                        "/images/posters/Mighty_Ducks.png",
-                        "/images/posters/Mandalorian_S2_(1)-1.png",
-                        "/images/posters/Wandavision_EN_(2).png",
-                        "/images/posters/The_Right_Stuff_EN.png",
-                        "/images/posters/ForkyAsksAQuestion_en-US.jpeg",
-                        "/images/posters/HSMTMTS_EN-1.png",
-                        "/images/posters/Soul_EN_(1).png",
-                        "/images/posters/SW_Clone_Wars.png"
-            ]}
-            />
-            <Footer />
+        <>  
+            <main>
+                <Container>
+                    <Content>
+                        <CTA>
+                            <CTALogoOne src="/images/cta-logo-one.svg" alt="hulu Disney ESPN logo" />
+                            <SignUp href="/">GET THE DISNEY BUNDLE</SignUp>
+                            <p>Stream now. <a href="/">Terms apply.</a></p>
+                            <CTALogoTwo src="/images/cta-logo-two.png" alt="hulu Disney ESPN logo" />
+                            <SignForDisney href="/">Sign up for Disney+ only.</SignForDisney>
+                            <Price>$7.99/month or $79.99/year.</Price>
+                        </CTA>
+                        <BgImg />
+                    </Content>
+                    <ArrowDown>
+                        <a href="#bottom_section">
+                            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" fill="none"></rect><path d="M36.63,18.37a1.37,1.37,0,0,1,2.15.37,1.7,1.7,0,0,1-.3,2.06L25.4,32.64a1.37,1.37,0,0,1-1.85,0l-13-11.84a1.71,1.71,0,0,1-.29-2.06,1.37,1.37,0,0,1,2.15-.37l12.11,11ZM24.25,31.42a.38.38,0,0,1,.46,0l-.23-.21ZM11.71,19.55s0,.06,0,0Zm25.61,0h0Z"></path></svg>
+                        </a>
+                    </ArrowDown>
+                </Container>
+                <Container id="bottom_section">
+                    <CardContent>
+                        <PictureContent>
+                            <img src="/images/backgrounds/Raya_Side_Align_1440_en-US.jpeg" alt="" />
+                        </PictureContent>
+                        <PosterText>
+                            <h2>Now streaming with <br /><span>Premier Access</span></h2>
+                            <p>See Raya and the Last Dragon before it's available to all Disney+ subscribers on June 4. Watch as many times as you like with Premier Access for $29.99 and your Disney+ subscription.</p>
+                            <a href="/">Get Premier Access Now</a>
+                        </PosterText>
+                    </CardContent>
+                </Container>
+                <CaptionContainer>
+                    <Wrapper>
+                        <Meta>
+                            <h2 className="heading">Virtual movie nights with GroupWatch</h2>
+                            <div className="richtext">
+                                <ul>
+                                    <li>Watch together, even when apart</li>
+                                    <li>Stream with up to 6 friends</li>
+                                    <li>Pause, rewind, react together</li>
+                                    <li>Easy setup and sharing</li>
+                                </ul>
+                            </div>
+                        </Meta>
+                    </Wrapper>
+                    <BgImgSecond />
+                </CaptionContainer>
+                <Grid title="The new home for your favorites" paragraph="An unprecedented collection of the world's most beloved movies and TV series"
+                    imgSrc={["/images/posters/moana-poster-4-2.png",
+                            "/images/posters/Poster_InfinityWar_EN.jpeg",
+                            "/images/posters/Disney_MLP_GridItem_TS4_AUNZ.jpeg",
+                            "/images/posters/Disney_MLP_GridItem_SWRiseofSkywalker.jpeg",
+                            "/images/posters/the-simpsons-poster-6@2x-1.png",
+                            "/images/posters/Hamilton_Grid_Item_English.jpeg",
+                            "/images/posters/Mickey_Mouse_Clubhouse_Grid_Item_052820.jpeg",
+                            "/images/posters/Poster_LifeBelowZero_EN.jpeg",
+                            "/images/posters/Poster_ArtemisFowl_EN_v2.jpeg"
+                ]} button="GET THE DISNEY BUNDLE"
+                />
+                <CaptionContainer>
+                    <StreamWrapper>
+                        <MetaStream>
+                            <h2>Stream now or <br/><span>download and go</span></h2>
+                            <p>
+                            Stream on 4 devices at once or download your favorites to watch later. With dozens of titles in stunning 4K UHD, you can watch the way you always wished.
+                            </p>
+                        </MetaStream>
+                        <ImgContainer>
+                            <img src="/images/backgrounds/4DevicesLockup_English_1140.png" alt="4Device" />
+                        </ImgContainer>
+                    </StreamWrapper>
+                </CaptionContainer>
+                <Grid title="Stream exclusive Disney+ Originals" paragraph="New stories from our incredible family of studios"
+                    imgSrc={["/images/posters/FAWS_(1)-3.png",
+                            "/images/posters/Mighty_Ducks.png",
+                            "/images/posters/Mandalorian_S2_(1)-1.png",
+                            "/images/posters/Wandavision_EN_(2).png",
+                            "/images/posters/The_Right_Stuff_EN.png",
+                            "/images/posters/ForkyAsksAQuestion_en-US.jpeg",
+                            "/images/posters/HSMTMTS_EN-1.png",
+                            "/images/posters/Soul_EN_(1).png",
+                            "/images/posters/SW_Clone_Wars.png"
+                ]}
+                />
+            </main>
+            
         </>
     )
 }
