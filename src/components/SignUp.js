@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
-import {authService} from '../fbase';
+import {authService, firebaseInstance} from '../fbase';
 
-
-const LoginContainer = styled.div`
+const SignUpContainer = styled.div`
     width: 100%;
     height: 100vh;
     background-color: #1a1d29;
@@ -11,7 +11,7 @@ const LoginContainer = styled.div`
     justify-content: center;
 `
 
-const LoginContent = styled.div`
+const SignupContent = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 50px;
@@ -74,68 +74,91 @@ const Form = styled.form`
         }
     }
 `
-
-const Suggest = styled.div`
+const LoginWithGoogleAccount = styled.div`
     margin-top: 24px;
 
-    span {
-        font-size: 15px;
-        color: rgb(202, 202, 202);
-    }
-    a {
-        text-decoration: none;
-        :hover {
-            text-decoration: underline;
+    button {
+        border: 1px solid transparent;
+        border-radius: 4px;
+        width: 100%;
+        padding: 14px 0px;
+        color: #f9f9f9;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 600;
+        background-color: #39b44a;
+        cursor: pointer;
+
+        :focus {
+            outline: none;
         }
     }
+
 `
 
-function Login() {
+
+function SignUp() {
+    const [newAccount, setNewAccount] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
+
+    let history = useHistory();
+
+    const handleChange = (e) => {
+        const {target : {name, value}} = e;
+        if(name === "email"){
+            setEmail(value);
+        } else if(name === "password"){
+            setPassword(value);
+        }
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault();
-
         try {
-            const data = await authService.signInWithEmailAndPassword(email, password)
-            console.log(data);
+            if(newAccount) {
+                await authService.createUserWithEmailAndPassword(email, password);
+                setNewAccount(false);
+                history.push("/home");
+            } else if(newAccount === false){
+                setError("This email is already exists");
+            }
+
         } catch (err) {
             setError(err.message);
         }
     }
 
-    const handleChange = (e) => {
-        const {target : {name}} = e;
-        let value = e.target.value;
+    const handleGoogleSingIn = async(e) => {
+        e.preventDefault();
+        const provider = new firebaseInstance.auth.GoogleAuthProvider();
+        await authService.signInWithPopup(provider);
+        setNewAccount(false);
+        history.push("/main");
 
-        if(name === "email") {
-            setEmail(value);
-        } else if(name === "password") {
-            setPassword(value);
-        }
     }
 
     return (
-        <LoginContainer>
-            <LoginContent>
+        <SignUpContainer>
+            <SignupContent>
                 <a href="/">
                     <img src="/images/logo.svg" alt="disney logo" />
                 </a>
-                <h2>Log-In with your email</h2>
+                <h2>Sign Up For Your Account</h2>
                 <Form onSubmit={handleSubmit}>
-                    {error ? <span>{error}</span> : null}
-                    <input name="email" type="email"  value={email} onChange={handleChange}placeholder="Email" required autoComplete="true" />
+                    <span>{error}</span>
+                    <input name="email" type="email" value={email}  onChange={handleChange} placeholder="Email" required autoComplete="true" />
                     <input name="password" type="password" value={password} onChange={handleChange} placeholder="Password" required autoComplete="true" />
                     <input type="submit" value="continue" />
                 </Form>
-                <Suggest>
-                    <span>New to Disney+? <a href="/signup">Sign up</a></span>
-                </Suggest>
-            </LoginContent>
-        </LoginContainer>
+                <LoginWithGoogleAccount>
+                    <button onClick={handleGoogleSingIn}>Continue with Google Account</button>
+                </LoginWithGoogleAccount>
+            </SignupContent>
+        </SignUpContainer>
     )
 }
 
-export default Login;
+export default SignUp

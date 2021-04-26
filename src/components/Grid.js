@@ -106,7 +106,7 @@ function Grid({title, paragraph, imgSrc, button}) {
             {button && 
                 <TableContainer>
                     <TableContent>
-                        <SignUp href="/" style={{padding: "20px 50px"}}>{button}</SignUp>
+                        <SignUp href="/login" style={{padding: "20px 50px"}}>{button}</SignUp>
                     </TableContent>
                 </TableContainer>
             }

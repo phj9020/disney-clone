@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -15,7 +15,7 @@ const HeaderContainer = styled.header`
     transform: translateZ(0);
     transition: opacity .5s ease-out;
     padding: 0 36px;
-    `
+`
 
 const Nav = styled.nav`
     width: 100%;
@@ -48,7 +48,7 @@ const GetAll = styled.a`
 
 `
 
-const NavInitial = styled.nav`
+const NavInitial = styled.div`
     position: fixed;
     left:0;
     top:0;
@@ -86,25 +86,39 @@ const Logo = styled.img`
 
 
 function Header() {
-    document.addEventListener("scroll", () => {
-        const yoffset = window.pageYOffset;
-        console.log(yoffset);
-        if(yoffset >= 923) {
-            document.querySelector(".header").style.opacity = 1;
-            document.querySelector(".header").style.zIndex = 11;
-        } else {
-            document.querySelector(".header").style.opacity = 0;
-            document.querySelector(".header").style.zIndex = 9;
 
+    const navSwitch = () => {
+        const yoffset = window.pageYOffset;
+        
+        if(yoffset >= 923) {
+            document.querySelector("#willSwitch").style.opacity = 1;
+            document.querySelector("#willSwitch").style.zIndex = 11;
+        } else {
+            document.querySelector("#willSwitch").style.opacity = 0;
+            document.querySelector("#willSwitch").style.zIndex = 9;
+            
         }
-    });
+    };
+
+    
+    
+    useEffect(()=>{
+        document.addEventListener("scroll", navSwitch);
+        
+        return () => {
+            // Anything in here is fired on component unmount.
+            document.removeEventListener("scroll", navSwitch);
+        }
+        
+    },[]);
+
 
     return (
         <>
             <NavInitial>
                 <Login href="/login">log in</Login>
             </NavInitial>
-            <HeaderContainer className="header">
+            <HeaderContainer id="willSwitch">
                 <Nav>
                     <Logo src="/images/logo.svg"  alt="disney logo" />
                     <WrapperRight>
