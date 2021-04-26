@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {authService, firebaseInstance} from '../fbase';
+import {useDispatch} from 'react-redux';
+import { setUserLoginDetails} from '../features/user/userSlice';
+
 
 const SignUpContainer = styled.div`
     width: 100%;
@@ -103,7 +106,7 @@ function SignUp() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
-
+    const dispatch = useDispatch();
     let history = useHistory();
 
     const handleChange = (e) => {
@@ -115,30 +118,50 @@ function SignUp() {
         }
     }
 
+    const setUser = (user) => {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL
+            })
+        )
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
             if(newAccount) {
-                await authService.createUserWithEmailAndPassword(email, password);
+                const data = await authService.createUserWithEmailAndPassword(email, password);
                 setNewAccount(false);
+                setUser(data.user)
                 history.push("/home");
             } else if(newAccount === false){
                 setError("This email is already exists");
             }
-
+            
         } catch (err) {
             setError(err.message);
         }
     }
-
-    const handleGoogleSingIn = async(e) => {
+    
+    const handleGoogleSignIn = async(e) => {
         e.preventDefault();
         const provider = new firebaseInstance.auth.GoogleAuthProvider();
-        await authService.signInWithPopup(provider);
-        setNewAccount(false);
-        history.push("/main");
-
+        try {
+            const data = await authService.signInWithPopup(provider);
+            setUser(data.user)
+            history.push("/home");
+        } catch (err) {
+            console.log(err);
+        }
     }
+
+    useEffect(()=> {
+        return () => { 
+            setNewAccount(false);
+        }
+    },[]) 
 
     return (
         <SignUpContainer>
@@ -154,7 +177,7 @@ function SignUp() {
                     <input type="submit" value="continue" />
                 </Form>
                 <LoginWithGoogleAccount>
-                    <button onClick={handleGoogleSingIn}>Continue with Google Account</button>
+                    <button onClick={handleGoogleSignIn}>Continue with Google Account</button>
                 </LoginWithGoogleAccount>
             </SignupContent>
         </SignUpContainer>

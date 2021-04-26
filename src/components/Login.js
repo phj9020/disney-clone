@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
 import {authService} from '../fbase';
+import {useDispatch} from 'react-redux';
+import {setUserLoginDetails} from '../features/user/userSlice';
 
 
 const LoginContainer = styled.div`
@@ -95,12 +98,27 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
 
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    const setUser = (user) => {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL
+            })
+        )
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault();
 
         try {
             const data = await authService.signInWithEmailAndPassword(email, password)
             console.log(data);
+            setUser(data.user);
+            history.push("/home");
         } catch (err) {
             setError(err.message);
         }

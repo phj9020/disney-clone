@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {authService} from '../fbase';
+import {useDispatch, useSelector} from 'react-redux';
+import {selectUserPhoto, setUserLoginDetails} from '../features/user/userSlice';
+
 
 const HeaderContainer = styled.header`
     position: fixed;
@@ -20,7 +24,7 @@ const Nav = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    `
+`
 
 const NavLeft=styled.div`
     display: flex;
@@ -99,23 +103,90 @@ const MenuContainer = styled.span`
     
 `
 
+const DropDown = styled.div`
+    position: absolute;
+    top:60px;
+    right: 0px;
+    order: 1px solid rgba(151, 151, 151, 0.34);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+    padding: 10px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-align:center;
+    width: 100px;
+    opacity: 0;
+`
 
 const NavRight= styled.div`
+    position: relative;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
     img {
-        width: 48px;
-        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    &:hover {
+        ${DropDown} {
+            transition-duration: 1s;
+        }
     }
 `
 
 function LoggedInHeader() {
+    const history =useHistory();
+    const dispatch = useDispatch();
+    const userPhoto = useSelector(selectUserPhoto);
     
     const logOut= async(e) => {
         e.preventDefault();
         await authService.signOut();
+        history.push("/");
     }
 
+    const showSubMenu = () => {
+        document.querySelector("#dropdown_menu").style.display= "block";
+        document.querySelector("#dropdown_menu").style.opacity= 1;
+        
+    }
+    
+    const hideSubMenu = () => {
+        document.querySelector("#dropdown_menu").style.display= "none";
+        document.querySelector("#dropdown_menu").style.opacity= 0;
+    }
+
+    const setUser = (user) => {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL
+            })
+        )
+    }
+
+    useEffect(()=> {
+        document.querySelector("#dropdown").addEventListener("mouseenter", showSubMenu);
+        document.querySelector("#headerContainer").addEventListener("mouseleave", hideSubMenu);
+        
+        authService.onAuthStateChanged((user)=> {
+            if(user) {
+                console.log(user);
+                setUser(user);
+            }
+        })
+        
+    })
+
     return (
-        <HeaderContainer>
+        <HeaderContainer id="headerContainer">
             <Nav>
                 <NavLeft>
                     <a href="/home">
@@ -171,14 +242,18 @@ function LoggedInHeader() {
                             </a>
                         </MenuContainer>
                     </ul>
-                    <button onClick={logOut}>logout</button>
                 </NavLeft>
                 <NavRight>
-                    <img src="/images/icons/group-icon.png" alt="group-icon" />
+                    <img src={!userPhoto ? `/images/icons/mickey-mouse.gif` : userPhoto} alt="user icon" id="dropdown" />
+                    <DropDown id="dropdown_menu">
+                        <span onClick={logOut}>Log out</span>
+                    </DropDown>
                 </NavRight>
             </Nav>
         </HeaderContainer>
     )
 }
+
+
 
 export default LoggedInHeader;

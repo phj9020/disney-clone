@@ -19,7 +19,7 @@ const MainBackground = styled.div`
     z-index: -3;
 `
 
-function Home({userObj}) {
+function Home() {
     return (
         <MainContainer>
             <MainBackground>
