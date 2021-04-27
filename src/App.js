@@ -22,7 +22,6 @@ function App() {
 
     authService.onAuthStateChanged((user)=> {
       if(user) {
-        console.log(user);
         dispatch(setSignOutState({
           isLoggedIn:true
         }))
@@ -45,7 +44,7 @@ function App() {
                       {isLoggedIn ? 
                           <>
                             <Home /> 
-                            <Redirect to="/home" />
+                            <Redirect from="/" to="/home" />
                           </>
                       : <Landing />}
                     </Route>

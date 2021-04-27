@@ -77,7 +77,7 @@ const MenuContainer = styled.span`
             white-space: nowrap;
             position: relative;
 
-            :hover:after {
+            &:hover:after {
                 content: "";
                 position: absolute;
                 left: 0;
@@ -107,7 +107,7 @@ const DropDown = styled.div`
     position: absolute;
     top:60px;
     right: 0px;
-    order: 1px solid rgba(151, 151, 151, 0.34);
+    border: 1px solid rgba(151, 151, 151, 0.34);
     border-radius: 4px;
     box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
     padding: 10px;
@@ -144,7 +144,7 @@ function LoggedInHeader() {
     const history =useHistory();
     const dispatch = useDispatch();
     const userPhoto = useSelector(selectUserPhoto);
-    
+
     const logOut= async(e) => {
         e.preventDefault();
         await authService.signOut();
