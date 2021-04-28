@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="App">
           <Router>
-              {isLoggedIn ? <LoggedInHeader /> : <Header /> }
+              {isLoggedIn && isLoggedIn ? <LoggedInHeader /> : <Header /> }
                 <Switch>
                     <Route path="/" exact>
                       {isLoggedIn ? 

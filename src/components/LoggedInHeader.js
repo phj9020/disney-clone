@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
 import {authService} from '../fbase';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectUserPhoto, setUserLoginDetails} from '../features/user/userSlice';
+import {selectUserPhoto, setUserLoginDetails, loggedInState} from '../features/user/userSlice';
 
 
 const HeaderContainer = styled.header`
@@ -143,6 +143,8 @@ const NavRight= styled.div`
 function LoggedInHeader() {
     const history =useHistory();
     const dispatch = useDispatch();
+    const isLoggedIn = useSelector(loggedInState);
+    console.log(isLoggedIn)
     const userPhoto = useSelector(selectUserPhoto);
 
     const logOut= async(e) => {
@@ -158,8 +160,10 @@ function LoggedInHeader() {
     }
     
     const hideSubMenu = () => {
-        document.querySelector("#dropdown_menu").style.display= "none";
-        document.querySelector("#dropdown_menu").style.opacity= 0;
+        if(isLoggedIn) {
+            document.querySelector("#dropdown_menu").style.display= "none";
+            document.querySelector("#dropdown_menu").style.opacity= 0;
+        } 
     }
 
     const setUser = (user) => {
@@ -172,6 +176,7 @@ function LoggedInHeader() {
         )
     }
 
+    
     useEffect(()=> {
         document.querySelector("#dropdown").addEventListener("mouseenter", showSubMenu);
         document.querySelector("#headerContainer").addEventListener("mouseleave", hideSubMenu);

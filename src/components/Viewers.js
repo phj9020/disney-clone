@@ -25,7 +25,7 @@ const Wrap = styled.div`
     position:relative;
 
     img {
-        inset: 0px;
+        /* inset: 0px; */
         width: 100%;
         height: 100%;
         object-fit:cover;
