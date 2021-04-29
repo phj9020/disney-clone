@@ -36,6 +36,7 @@ function Home() {
 
         dbService.collection("movies").onSnapshot((snapshot) => {
         
+            // eslint-disable-next-line array-callback-return
             snapshot.docs.map((doc) => {
                 switch (doc.data().type) {
                     case "recommend":
