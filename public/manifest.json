@@ -3,17 +3,17 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://prod-static.disney-plus.net/us-east-1/disneyPlus/app/builds/85f3fb9166bae278842d159aa5fb7b9421cd8d82/disneyPlus/app/assets/images/favicons/favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "https://prod-static.disney-plus.net/us-east-1/disneyPlus/app/builds/85f3fb9166bae278842d159aa5fb7b9421cd8d82/disneyPlus/app/assets/images/favicons/favicon.ico",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "https://prod-static.disney-plus.net/us-east-1/disneyPlus/app/builds/85f3fb9166bae278842d159aa5fb7b9421cd8d82/disneyPlus/app/assets/images/favicons/favicon.ico",
       "type": "image/png",
       "sizes": "512x512"
     }

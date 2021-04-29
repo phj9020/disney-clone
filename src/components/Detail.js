@@ -214,7 +214,7 @@ function Detail() {
         <DetailContainer>
             <HelmetProvider>
                 <Helmet>
-                    <title>movie name | Disney Clone</title>
+                    <title>{`${detailData.title}`} | Disney Clone</title>
                 </Helmet>
             </HelmetProvider>
             <Background>
