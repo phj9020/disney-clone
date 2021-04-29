@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import styled from 'styled-components';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import {authService, firebaseInstance} from '../fbase';
 import {useDispatch} from 'react-redux';
 import { setUserLoginDetails} from '../features/user/userSlice';
@@ -165,6 +166,11 @@ function SignUp() {
 
     return (
         <SignUpContainer>
+            <HelmetProvider>
+                <Helmet>
+                    <title>Sign Up | Disney Clone</title>
+                </Helmet>
+            </HelmetProvider>
             <SignupContent>
                 <a href="/">
                     <img src="/images/logo.svg" alt="disney logo" />

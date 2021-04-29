@@ -43,7 +43,7 @@ function Footer() {
         <FooterContainer>
             <FooterWrapper>
                 <Logo>
-                    <img src="images/logo.svg" alt="logo" />
+                    <img src="/images/logo.svg" alt="logo" />
                 </Logo>
                 <Policy>
                     <span>Subscriber Agreement</span>

@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Home from './components/Home';
+import Detail from './components/Detail';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSignOutState, loggedInState} from './features/user/userSlice';
 
@@ -38,7 +39,7 @@ function App() {
   return (
     <div className="App">
           <Router>
-              {isLoggedIn && isLoggedIn ? <LoggedInHeader /> : <Header /> }
+              {isLoggedIn ? <LoggedInHeader /> : <Header /> }
                 <Switch>
                     <Route path="/" exact>
                       {isLoggedIn ? 
@@ -48,9 +49,12 @@ function App() {
                           </>
                       : <Landing />}
                     </Route>
-                    <Router path="/home" >
+                    <Route path="/home" >
                       <Home />
-                    </Router>
+                    </Route>
+                    <Route path="/detail/:id">
+                      <Detail />
+                    </Route>
                     {isLoggedIn ? null : 
                     <>
                       <Route path="/login">

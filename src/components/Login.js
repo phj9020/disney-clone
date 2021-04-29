@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom";
 import styled from 'styled-components';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import {authService} from '../fbase';
 import {useDispatch} from 'react-redux';
 import {setUserLoginDetails} from '../features/user/userSlice';
@@ -136,23 +137,30 @@ function Login() {
     }
 
     return (
-        <LoginContainer>
-            <LoginContent>
-                <a href="/">
-                    <img src="/images/logo.svg" alt="disney logo" />
-                </a>
-                <h2>Log-In with your email</h2>
-                <Form onSubmit={handleSubmit}>
-                    {error ? <span>{error}</span> : null}
-                    <input name="email" type="email"  value={email} onChange={handleChange}placeholder="Email" required autoComplete="true" />
-                    <input name="password" type="password" value={password} onChange={handleChange} placeholder="Password" required autoComplete="true" />
-                    <input type="submit" value="continue" />
-                </Form>
-                <Suggest>
-                    <span>New to Disney+? <a href="/signup">Sign up</a></span>
-                </Suggest>
-            </LoginContent>
-        </LoginContainer>
+        <>
+            <HelmetProvider>
+                <Helmet>
+                    <title>Login | Disney Clone</title>
+                </Helmet>
+            </HelmetProvider>
+            <LoginContainer>
+                <LoginContent>
+                    <a href="/">
+                        <img src="/images/logo.svg" alt="disney logo" />
+                    </a>
+                    <h2>Log-In with your email</h2>
+                    <Form onSubmit={handleSubmit}>
+                        {error ? <span>{error}</span> : null}
+                        <input name="email" type="email"  value={email} onChange={handleChange}placeholder="Email" required autoComplete="true" />
+                        <input name="password" type="password" value={password} onChange={handleChange} placeholder="Password" required autoComplete="true" />
+                        <input type="submit" value="continue" />
+                    </Form>
+                    <Suggest>
+                        <span>New to Disney+? <a href="/signup">Sign up</a></span>
+                    </Suggest>
+                </LoginContent>
+            </LoginContainer>
+        </>
     )
 }
 

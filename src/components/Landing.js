@@ -1,6 +1,7 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import Grid from './Grid';
+import Helmet from "react-helmet";
 
 const Container = styled.section`
     display: flex;
@@ -334,9 +335,16 @@ function Landing() {
     const moveBottom = () => {
         window.scrollTo(0, 923);
     }
+
+    useEffect(()=> {
+        window.scrollTo(0,0);
+    }, [])
     
     return (
         <>  
+            <Helmet>
+                <title>Stream Disney, Marvel, Pixar, Star Wars | Disney Clone</title>
+            </Helmet>
             <main>
                 <Container>
                     <Content>

@@ -48,18 +48,19 @@ const Wrap = styled.div`
     }   
 `
 
-function Block({title, imgSrc}) {
+function Block({title, obj}) {
     
     return (
         <BlockContainer>
             <h2>{title}</h2>
             <Content>
-                {imgSrc && imgSrc.map((item, index) => 
-                    <Wrap key={index}>
-                        <Link to="/">
-                            <img src={item} alt="" />
+                {obj && obj.map((item, key) => 
+                    <Wrap key={key}>
+                        <Link to={`/detail/${item.id}`}>
+                            <img src={item.cardImg} alt={item.title} />
                         </Link>
-                    </Wrap>)}
+                    </Wrap>)
+                }
             </Content>
         </BlockContainer>
     )
