@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
+import {useSelector} from 'react-redux';
+import {selectNewDisney, selectOriginal, selectTrending} from '../features/movie/movieSlice';
 
 
 const Carousel = styled(Slider)`
@@ -52,6 +54,7 @@ const Carousel = styled(Slider)`
     .slick-next {
         right: -75px;
     }
+
 `
 
 const Wrap = styled.div`
@@ -67,21 +70,33 @@ const Wrap = styled.div`
         padding: 4px;
         box-sizing: border-box;
         
+        
         img {
             width: 100%;
             height: 100%;
+        }
+
+        img.postertext {
+            position: absolute;
+            top:0;
+            left:0;
         }
 
         &:hover {
             padding:0;
             border: 4px solid rgba(255, 255, 255, 0.8);
             transition-duration: 300ms;
+
         }
     }
 
 `
 
 function ImageSlider() {
+    const newDisneyFromRedux = useSelector(selectNewDisney);
+    const originlFromRedux = useSelector(selectOriginal);
+    const trendingFromRedux = useSelector(selectTrending);
+
     let setting = {
         dots: true,
         infinite: true,
@@ -94,23 +109,26 @@ function ImageSlider() {
     return (
         <Carousel {...setting}>
             <Wrap>
-                <a href="/home">
+                <a href={trendingFromRedux && `/detail/${trendingFromRedux[2].id}`}>
+                    <img src="/images/sliders/slider-simsons.jpeg" alt="" />
+                    <img className="postertext" src="/images/sliders/simsons-slider-logo.png" alt="" />
+                </a>
+            </Wrap>
+            <Wrap>
+                <a href={newDisneyFromRedux && `/detail/${newDisneyFromRedux[0].id}`}>
+                    <img src="/images/sliders/slider-falcon.jpeg" alt="" />
+                    <img className="postertext" src="/images/sliders/slider-falcon-logo.png" alt="" />
+                </a>
+            </Wrap>
+            <Wrap>
+                <a href={newDisneyFromRedux && `/detail/${newDisneyFromRedux[1].id}`}>
+                    <img src="/images/sliders/slider-raya.jpeg" alt="" />
+                    <img className="postertext" src="/images/sliders/raya-slider-logo.png" alt="" />
+                </a>
+            </Wrap>
+            <Wrap>
+                <a href={originlFromRedux && `/detail/${originlFromRedux[3].id}`}>
                     <img src="/images/sliders/slider-badging.jpg" alt="" />
-                </a>
-            </Wrap>
-            <Wrap>
-                <a href="/home">
-                    <img src="/images/sliders/slider-scale.jpg" alt="" />
-                </a>
-            </Wrap>
-            <Wrap>
-                <a href="/home">
-                    <img src="/images/sliders/slider-badag.jpg" alt="" />
-                </a>
-            </Wrap>
-            <Wrap>
-                <a href="/home">
-                    <img src="/images/sliders/slider-scales.jpg" alt="" />
                 </a>
             </Wrap>
 
