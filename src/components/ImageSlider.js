@@ -94,22 +94,22 @@ function ImageSlider() {
     return (
         <Carousel {...setting}>
             <Wrap>
-                <a href="/">
+                <a href="/home">
                     <img src="/images/sliders/slider-badging.jpg" alt="" />
                 </a>
             </Wrap>
             <Wrap>
-                <a href="/">
+                <a href="/home">
                     <img src="/images/sliders/slider-scale.jpg" alt="" />
                 </a>
             </Wrap>
             <Wrap>
-                <a href="/">
+                <a href="/home">
                     <img src="/images/sliders/slider-badag.jpg" alt="" />
                 </a>
             </Wrap>
             <Wrap>
-                <a href="/">
+                <a href="/home">
                     <img src="/images/sliders/slider-scales.jpg" alt="" />
                 </a>
             </Wrap>
